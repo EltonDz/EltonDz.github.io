@@ -25,6 +25,11 @@
             font-size: 24px;
             margin: 10px;
         }
+        #fearGreedIndex {
+            color: white;
+            font-size: 18px;
+            margin: 10px;
+        }
         .cripto-precio {
             display: flex;
             justify-content: center;
@@ -38,10 +43,19 @@
             margin-left: 10px;
         }
         .logo {
-    width: 50px; /* Ancho deseado */
-    height: 65px; /* Altura deseada */
-    vertical-align: middle;
-}
+            width: 50px; /* Ancho deseado */
+            height: 65px; /* Altura deseada */
+            vertical-align: middle;
+        }
+        .miedo {
+            color: blue; /* Verde para miedo */
+        }
+        .codicia {
+            color: red; /* Rojo para codicia */
+        }
+        .neutral {
+            color: white; /* Blanco para neutral */
+        }
     </style>
 </head>
 <body>
@@ -71,7 +85,9 @@
         <img src="https://cryptologos.cc/logos/pepe-pepe-logo.png" alt="PEPE Logo">
     </div>
 
-    <audio controls style="line-height: 4;">
+    <div style="line-height: 2;" id="fearGreedIndex"></div style="line-height: 2;" >
+
+    <audio style="line-height: 2;" controls style="line-height: 4;">
         <source src="These_Lies.mp3" type="audio/mpeg">
         Tu navegador no soporta el elemento de audio.
     </audio>
@@ -105,12 +121,39 @@
                 });
         }
 
+        function obtenerIndiceMiedoCodicia() {
+            fetch('https://api.alternative.me/fng/?limit=1')
+                .then(response => response.json())
+                .then(data => {
+                    const fearGreedIndex = parseInt(data.data[0].value);
+                    let recomendacion;
+
+                    if (fearGreedIndex <= 30) {
+                        recomendacion = `<span class="miedo">Momento de comprar.</span>`;
+                    } else if (fearGreedIndex >= 70) {
+                        recomendacion = `<span class="codicia">¡Momento de vender!</span>`;
+                    } else {
+                        recomendacion = `<span class="neutral">Mercado neutral, actúa con cautela.</span>`;
+                    }
+
+                    document.getElementById('fearGreedIndex').innerHTML = `Índice de Miedo y Codicia: ${fearGreedIndex} ${recomendacion}`;
+                })
+                .catch(error => {
+                    console.error('Error al obtener el índice de miedo y codicia:', error);
+                    document.getElementById('fearGreedIndex').innerText = 'No se pudo obtener el índice de miedo y codicia.';
+                });
+        }
+
         // Actualiza la hora y fecha cada segundo
         setInterval(actualizarHoraFecha, 1000);
         // Obtiene los precios de criptomonedas al cargar la página
         obtenerPreciosCriptos();
+        // Obtiene el índice de miedo y codicia al cargar la página
+        obtenerIndiceMiedoCodicia();
     </script>
 
 </body>
 </html>
+
+
 
