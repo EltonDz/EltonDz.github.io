@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cortesía de Dr. Díaz</title>
+    <style>
+        body {
+            background-color: black; /* Fondo negro */
+            color: lime; /* Letras verdes */
+            font-family: 'Courier New', Courier, monospace, 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif, 'Times New Roman', Times, serif, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        h1 {
+            color: yellow; /* Color amarillo para el título */
+        }
+        }
+        #hora, #fecha, #precioBitcoin, #precioShiba, #precioPEPE {
+            color: violet;
+            font-size: 24px;
+            margin: 10px;
+        }
+        #precioBitcoin, #precioShiba, #precioPEPE {
+            color: lime;
+            font-size: 24px;
+            margin: 10px;
+        }
+        .cripto-precio {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .cripto-precio img {
+            color: aliceblue;
+            width: 30px;
+            height: 30px;
+            margin-left: 10px;
+        }
+        .logo {
+    width: 50px; /* Ancho deseado */
+    height: 65px; /* Altura deseada */
+    vertical-align: middle;
+}
+    </style>
+</head>
+<body>
+
+    <h1 style="color: yellow;">
+        <img src="ELT_1.png" alt="Logo de Bitcoin" class="logo">
+        Cortesía del Dr. Díaz
+        <img src="ELT_1.png" alt="Logo de Bitcoin" class="logo">
+    </h1>
+
+    <div id="fecha"></div>
+    <div style="line-height: 2;" id="hora"></div>
+
+    <!-- Precios de criptomonedas con logos -->
+    <div style="line-height: 2;" class="cripto-precio" id="precioBitcoin">
+        <span style="line-height: 2;">Precio de Bitcoin:</span> 
+        <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Bitcoin Logo">
+    </div>
+
+    <div style="line-height: 2;" class="cripto-precio" id="precioShiba">
+        <span>Precio de Shiba Inu:</span> 
+        <img src="https://cryptologos.cc/logos/shiba-inu-shib-logo.png" alt="Shiba Inu Logo">
+    </div>
+
+    <div style="line-height: 2;" class="cripto-precio" id="precioPEPE">
+        <span>Precio de PEPE:</span> 
+        <img src="https://cryptologos.cc/logos/pepe-pepe-logo.png" alt="PEPE Logo">
+    </div>
+
+    <audio controls style="line-height: 4;">
+        <source src="These_Lies.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <script>
+        function actualizarHoraFecha() {
+            const ahora = new Date();
+            const opcionesHora = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            const opcionesFecha = { year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('hora').innerText = `Hora: ${ahora.toLocaleTimeString('es-MX', opcionesHora)}`;
+            document.getElementById('fecha').innerText = `Fecha: ${ahora.toLocaleDateString('es-MX', opcionesFecha)}`;
+        }
+
+        function obtenerPreciosCriptos() {
+            fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,shiba-inu,pepe&vs_currencies=usd')
+                .then(response => response.json())
+                .then(data => {
+                    const precioBitcoin = data.bitcoin.usd;
+                    const precioShiba = data['shiba-inu'].usd;
+                    const precioPEPE = data.pepe.usd;
+
+                    document.getElementById('precioBitcoin').innerHTML = `Precio de Bitcoin: $${precioBitcoin} USD <img src="BTC_3.png" alt="Bitcoin Logo">`;
+                    document.getElementById('precioShiba').innerHTML = `Precio de Shiba Inu: $${precioShiba} USD <img src="SHIB_2.png" alt="Shiba Inu Logo">`;
+                    document.getElementById('precioPEPE').innerHTML = `Precio de PEPE: $${precioPEPE} USD <img src="PEPE_LOGO.webp" alt="PEPE Logo">`;
+                })
+                .catch(error => {
+                    console.error('Error al obtener los precios de criptomonedas:', error);
+                    document.getElementById('precioBitcoin').innerText = 'No se pudo obtener el precio de Bitcoin.';
+                    document.getElementById('precioShiba').innerText = 'No se pudo obtener el precio de Shiba Inu.';
+                    document.getElementById('precioPEPE').innerText = 'No se pudo obtener el precio de PEPE.';
+                });
+        }
+
+        // Actualiza la hora y fecha cada segundo
+        setInterval(actualizarHoraFecha, 1000);
+        // Obtiene los precios de criptomonedas al cargar la página
+        obtenerPreciosCriptos();
+    </script>
+
+</body>
+</html>
+
