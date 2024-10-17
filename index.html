@@ -71,17 +71,17 @@
 
     <!-- Precios de criptomonedas con logos -->
     <div style="line-height: 2;" class="cripto-precio" id="precioBitcoin">
-        <span style="line-height: 2;">Precio de Bitcoin:</span> 
+        <span style="line-height: 2;">Bitcoin:</span> 
         <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Bitcoin Logo">
     </div>
 
     <div style="line-height: 2;" class="cripto-precio" id="precioShiba">
-        <span>Precio de Shiba Inu:</span> 
+        <span>Shiba Inu:</span> 
         <img src="https://cryptologos.cc/logos/shiba-inu-shib-logo.png" alt="Shiba Inu Logo">
     </div>
 
     <div style="line-height: 2;" class="cripto-precio" id="precioPEPE">
-        <span>Precio de PEPE:</span> 
+        <span>PEPE:</span> 
         <img src="https://cryptologos.cc/logos/pepe-pepe-logo.png" alt="PEPE Logo">
     </div>
 
@@ -109,9 +109,9 @@
                     const precioShiba = data['shiba-inu'].usd;
                     const precioPEPE = data.pepe.usd;
 
-                    document.getElementById('precioBitcoin').innerHTML = `Precio de Bitcoin: $${precioBitcoin} USD <img src="BTC_3.png" alt="Bitcoin Logo">`;
-                    document.getElementById('precioShiba').innerHTML = `Precio de Shiba Inu: $${precioShiba} USD <img src="SHIB_2.png" alt="Shiba Inu Logo">`;
-                    document.getElementById('precioPEPE').innerHTML = `Precio de PEPE: $${precioPEPE} USD <img src="PEPE_LOGO.webp" alt="PEPE Logo">`;
+                    document.getElementById('precioBitcoin').innerHTML = `Bitcoin: $${precioBitcoin} USD <img src="BTC_3.png" alt="Bitcoin Logo">`;
+                    document.getElementById('precioShiba').innerHTML = `Shiba Inu: $${precioShiba} USD <img src="SHIB_2.png" alt="Shiba Inu Logo">`;
+                    document.getElementById('precioPEPE').innerHTML = `PEPE: $${precioPEPE} USD <img src="PEPE_LOGO.webp" alt="PEPE Logo">`;
                 })
                 .catch(error => {
                     console.error('Error al obtener los precios de criptomonedas:', error);
@@ -136,7 +136,7 @@
                         recomendacion = `<span class="neutral">Mercado neutral, actúa con cautela.</span>`;
                     }
 
-                    document.getElementById('fearGreedIndex').innerHTML = `Índice de Miedo y Codicia: ${fearGreedIndex} ${recomendacion}`;
+                    document.getElementById('fearGreedIndex').innerHTML = `Índice de Miedo y Codicia: ${fearGreedIndex} - ${recomendacion}`;
                 })
                 .catch(error => {
                     console.error('Error al obtener el índice de miedo y codicia:', error);
